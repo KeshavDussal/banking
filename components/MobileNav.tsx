@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Sheet,
   SheetClose,
@@ -13,17 +14,19 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Footer from "./Footer";
 
 const MobileNav = ({ user }: MobileNavProps) => {
-  const pathName = usePathname();
+  const pathname = usePathname();
+
   return (
-    <section className="w-full max-w-[264px] ">
+    <section className="w-fulll max-w-[264px]">
       <Sheet>
         <SheetTrigger>
           <Image
             src="/icons/hamburger.svg"
-            height={30}
             width={30}
+            height={30}
             alt="menu"
             className="cursor-pointer"
           />
@@ -48,8 +51,9 @@ const MobileNav = ({ user }: MobileNavProps) => {
               <nav className="flex h-full flex-col gap-6 pt-16 text-white">
                 {sidebarLinks.map((item) => {
                   const isActive =
-                    pathName === item.route ||
-                    pathName.startsWith(`{item.route}/`);
+                    pathname === item.route ||
+                    pathname.startsWith(`${item.route}/`);
+
                   return (
                     <SheetClose asChild key={item.route}>
                       <Link
@@ -82,7 +86,8 @@ const MobileNav = ({ user }: MobileNavProps) => {
                 USER
               </nav>
             </SheetClose>
-            FOOTER
+
+            <Footer user={user} type="mobile" />
           </div>
         </SheetContent>
       </Sheet>

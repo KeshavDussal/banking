@@ -1,13 +1,15 @@
 "use client";
+
 import { sidebarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import Footer from "./Footer";
 
 const Sidebar = ({ user }: SiderbarProps) => {
-  const pathName = usePathname();
+  const pathname = usePathname();
+
   return (
     <section className="sidebar">
       <nav className="flex flex-col gap-4">
@@ -23,7 +25,8 @@ const Sidebar = ({ user }: SiderbarProps) => {
         </Link>
         {sidebarLinks.map((item) => {
           const isActive =
-            pathName === item.route || pathName.startsWith(`{item.route}/`);
+            pathname === item.route || pathname.startsWith(`${item.route}/`);
+
           return (
             <Link
               href={item.route}
@@ -35,7 +38,9 @@ const Sidebar = ({ user }: SiderbarProps) => {
                   src={item.imgURL}
                   alt={item.label}
                   fill
-                  className={cn({ "brightness-[3] invert-0": isActive })}
+                  className={cn({
+                    "brightness-[3] invert-0": isActive,
+                  })}
                 />
               </div>
               <p className={cn("sidebar-label", { "!text-white": isActive })}>
@@ -46,7 +51,8 @@ const Sidebar = ({ user }: SiderbarProps) => {
         })}
         USER
       </nav>
-      FOOTER
+
+      <Footer user={user} />
     </section>
   );
 };
